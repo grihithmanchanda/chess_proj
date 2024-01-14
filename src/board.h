@@ -1,3 +1,4 @@
+#include <iostream>
 #include <vector>
 
 #include "piece.h"
@@ -8,8 +9,8 @@ class Board {
     public:
         Board();
 
-    //private:
-        //vector< vector<Piece> > board;
+    private:
+        vector< vector<Piece> > board;
 
 };
 
