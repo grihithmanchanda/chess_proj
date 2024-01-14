@@ -9,6 +9,8 @@ class Board {
         Board();
 
     private:
-        vector<vector<Piece>> board;
+        vector< vector<Piece> > board;
 
 };
+
+int main();
