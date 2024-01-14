@@ -1,6 +1,8 @@
+SOURCES = src/*.cc
+
 board:
 	mkdir -p out
-	g++ src/board.cc -o out/board
+	g++ $(SOURCES) -o out/board
 
 clean:
 	rm -rf out
