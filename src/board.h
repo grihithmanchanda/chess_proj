@@ -1,17 +1,17 @@
 #include <iostream>
 #include <vector>
 
-#include "piece.h"
+#include "king.h"
+#include "space.h"
 
 using namespace std;
 
 class Board {
     public:
         Board();
-
-    private:
-        vector< vector<Piece> > board;
-
+        vector< vector<Space> > board;
+        King kw;
+        King kb;
 };
 
 int main();

@@ -1,5 +1,7 @@
 #include "piece.h"
 
-class King : Piece {
-
+class King : public Piece {
+    public:
+        King(bool white);
+        string getString();
 };
