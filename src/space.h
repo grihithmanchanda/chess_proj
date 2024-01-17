@@ -3,7 +3,7 @@
 class Space {
     public:
         Space();
-        void setPiece(Piece* p);
+        void setPiece(Piece* p, int r, int f);
         Piece* getPiece();
         bool getEmpty();
 
@@ -11,4 +11,6 @@ class Space {
     private:
         Piece* piece;
         bool isEmpty;
+        int rank;
+        int file;
 };
