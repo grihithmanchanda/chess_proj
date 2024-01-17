@@ -15,4 +15,6 @@ Piece* Board::getPiece(int rank, int file) {
 
 void Board::setPiece(Piece* piece, int rank, int file) {
     board[rank][file].setPiece(piece);
+    piece->setRank(rank);
+    piece->setFile(file);
 }

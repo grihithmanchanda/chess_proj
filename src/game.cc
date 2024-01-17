@@ -51,5 +51,9 @@ int main() {
         cout << endl;
     }
 
+    for (auto move : nb[1].getMoves()) {
+        cout << move[0] << ", " << move[1] << endl;
+    }
+
     return 0;
 }

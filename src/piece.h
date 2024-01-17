@@ -8,10 +8,14 @@ using namespace std;
 class Piece {
     public:
         virtual string getString() = 0;
-        //virtual vector< vector<int> > getMoves(Board board) = 0;
+        void setRank(int r);
+        void setFile(int f);
+        //virtual vector< vector<int> > getMoves() = 0;
 
     protected:
         bool isWhite;
+        int rank;
+        int file;
 };
 
 #endif
