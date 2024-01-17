@@ -7,6 +7,7 @@ class Pawn : public Piece {
     public:
         Pawn(bool white);
         string getString();
+        vector< vector<int> > getMoves();
 };
 
 #endif

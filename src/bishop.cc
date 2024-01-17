@@ -9,3 +9,7 @@ Bishop::Bishop(bool white) {
 string Bishop::getString() {
     return "B";
 }
+
+vector< vector<int> > Bishop::getMoves() {
+    vector< vector<int> > moves;
+}

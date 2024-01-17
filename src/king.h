@@ -7,6 +7,7 @@ class King : public Piece {
     public:
         King(bool white);
         string getString();
+        vector< vector<int> > getMoves();
 };
 
 #endif
