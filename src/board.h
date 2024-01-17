@@ -1,3 +1,6 @@
+#ifndef BOARD_H
+#define BOARD_H
+
 #include <iostream>
 #include <vector>
 
@@ -15,18 +18,10 @@ class Board {
     public:
         Board();
         vector< vector<Space> > board;
-        King kw;
-        King kb;
-        Queen qw;
-        Queen qb;
-        vector<Rook> rw;
-        vector<Rook> rb;
-        vector<Bishop> bw;
-        vector<Bishop> bb;
-        vector<Knight> nw;
-        vector<Knight> nb;
-        vector<Pawn> pw;
-        vector<Pawn> pb;
+        Piece* getPiece(int rank, int file);
+        void setPiece(Piece* piece, int rank, int file);
 };
 
 int main();
+
+#endif

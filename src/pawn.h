@@ -1,3 +1,6 @@
+#ifndef PAWN_H
+#define PAWN_H
+
 #include "piece.h"
 
 class Pawn : public Piece {
@@ -5,3 +8,5 @@ class Pawn : public Piece {
         Pawn(bool white);
         string getString();
 };
+
+#endif

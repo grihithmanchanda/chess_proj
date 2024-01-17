@@ -1,9 +1,12 @@
+#ifndef SPACE_H
+#define SPACE_H
+
 #include "piece.h"
 
 class Space {
     public:
         Space();
-        void setPiece(Piece* p, int r, int f);
+        void setPiece(Piece* p);
         Piece* getPiece();
         bool getEmpty();
 
@@ -14,3 +17,5 @@ class Space {
         int rank;
         int file;
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef BISHOP_H
+#define BISHOP_H
+
 #include "piece.h"
 
 class Bishop : public Piece {
@@ -5,3 +8,5 @@ class Bishop : public Piece {
         Bishop(bool white);
         string getString();
 };
+
+#endif

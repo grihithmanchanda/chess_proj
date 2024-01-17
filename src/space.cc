@@ -4,11 +4,9 @@ Space::Space() {
     isEmpty = true;
 }
 
-void Space::setPiece(Piece* p, int r, int f) {
+void Space::setPiece(Piece* p) {
     isEmpty = false;
     piece = p;
-    rank = r;
-    file = f;
 }
 
 Piece* Space::getPiece() {

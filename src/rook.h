@@ -1,3 +1,6 @@
+#ifndef ROOK_H
+#define ROOK_H
+
 #include "piece.h"
 
 class Rook : public Piece {
@@ -5,3 +8,5 @@ class Rook : public Piece {
         Rook(bool white);
         string getString();
 };
+
+#endif
