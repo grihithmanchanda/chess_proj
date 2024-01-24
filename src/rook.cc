@@ -9,3 +9,7 @@ Rook::Rook(bool white) {
 string Rook::getString() {
     return "R";
 }
+
+PieceType Rook::getType() {
+    return ROOK;
+}

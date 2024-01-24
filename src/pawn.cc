@@ -9,3 +9,7 @@ Pawn::Pawn(bool white) {
 string Pawn::getString() {
     return "P";
 }
+
+PieceType Pawn::getType() {
+    return PAWN;
+}

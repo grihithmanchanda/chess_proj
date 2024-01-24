@@ -7,7 +7,7 @@ class Knight : public Piece {
     public:
         Knight(bool white);
         string getString();
-        vector< vector<int> > getMoves();
+        PieceType getType();
 
     private:
         static vector< vector<int> > moveOffsets;

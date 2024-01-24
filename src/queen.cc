@@ -9,3 +9,7 @@ Queen::Queen(bool white) {
 string Queen::getString() {
     return "Q";
 }
+
+PieceType Queen::getType() {
+    return QUEEN;
+}

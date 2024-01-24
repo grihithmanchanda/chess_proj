@@ -9,3 +9,7 @@ King::King(bool white) {
 string King::getString() {
     return "K";
 }
+
+PieceType King::getType() {
+    return KING;
+}

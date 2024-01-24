@@ -7,7 +7,7 @@ class Queen : public Piece {
     public:
         Queen(bool white);
         string getString();
-        vector< vector<int> > getMoves();
+        PieceType getType();
 };
 
 #endif

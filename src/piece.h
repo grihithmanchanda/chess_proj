@@ -7,12 +7,21 @@
 
 using namespace std;
 
+enum PieceType {
+    KING,
+    QUEEN,
+    ROOK,
+    BISHOP,
+    KNIGHT,
+    PAWN
+};
+
 class Piece {
     public:
         virtual string getString() = 0;
         void setRank(int r);
         void setFile(int f);
-        virtual vector< vector<int> > getMoves() = 0;
+        virtual PieceType getType() = 0;
 
     protected:
         bool isWhite;
