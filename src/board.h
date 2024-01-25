@@ -2,6 +2,7 @@
 #define BOARD_H
 
 #include <iostream>
+#include <set>
 #include <vector>
 
 #include "bishop.h"
@@ -20,10 +21,10 @@ class Board {
         vector< vector<Space> > board;
         Piece* getPiece(int rank, int file);
         void setPiece(Piece* piece, int rank, int file);
-        vector< vector<int> > getMoves(Piece* piece);
+        set< vector<int> > getMoves(Piece* piece);
 
     private:
-        vector< vector<int> > knightMoves(Knight* piece);
+        set< vector<int> > knightMoves(Knight* piece);
         static vector< vector<int> > knightMoveOffsets;
 };
 

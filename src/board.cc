@@ -19,7 +19,7 @@ void Board::setPiece(Piece* piece, int rank, int file) {
     piece->setFile(file);
 }
 
-vector< vector<int> > Board::getMoves(Piece* piece) {
+set< vector<int> > Board::getMoves(Piece* piece) {
     switch (piece->getType()) {
         case KNIGHT:
             return knightMoves((Knight*) piece);
@@ -32,15 +32,15 @@ vector< vector<int> > Board::getMoves(Piece* piece) {
 vector< vector<int> > Board::knightMoveOffsets = {{1, 2}, {1, -2}, {-1, 2}, {-1, -2},
                                              {2, 1}, {2, -1}, {-2, 1}, {-2, -1}};
 
-vector< vector<int> > Board::knightMoves(Knight* knight) {
-    vector< vector<int> > moves;
+set< vector<int> > Board::knightMoves(Knight* knight) {
+    set< vector<int> > moves;
     for (auto offset : Board::knightMoveOffsets) {
         int newRank = knight->getRank() + offset[0];
         int newFile = knight->getFile() + offset[1];
         if (newRank >= 0 && newRank < 8) {
             if (newFile >= 0 && newFile < 8) {
                 if (!getPiece(newRank, newFile) || getPiece(newRank, newFile)->getWhite() != knight->getWhite()) {
-                    moves.push_back({newRank, newFile});
+                    moves.insert({newRank, newFile});
                 }
             }
         }
