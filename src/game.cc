@@ -51,7 +51,7 @@ int main() {
         cout << endl;
     }
 
-    set< vector <int> >* moves = new set< vector<int> >;
+    move_list* moves = new move_list;
 
     board.getMoves(&qw, moves);
 

@@ -19,7 +19,7 @@ void Board::setPiece(Piece* piece, int rank, int file) {
     piece->setFile(file);
 }
 
-void Board::getMoves(Piece* piece, set< vector<int> >* moves) {
+void Board::getMoves(Piece* piece, move_list* moves) {
     switch (piece->getType()) {
         case KNIGHT:
             knightMoves(piece, moves);
@@ -43,7 +43,7 @@ void Board::getMoves(Piece* piece, set< vector<int> >* moves) {
 vector< vector<int> > Board::knightMoveOffsets = {{1, 2}, {1, -2}, {-1, 2}, {-1, -2},
                                              {2, 1}, {2, -1}, {-2, 1}, {-2, -1}};
 
-void Board::knightMoves(Piece* piece, set< vector<int> >* moves) {
+void Board::knightMoves(Piece* piece, move_list* moves) {
     for (auto offset : Board::knightMoveOffsets) {
         int newRank = piece->getRank() + offset[0];
         int newFile = piece->getFile() + offset[1];
@@ -58,7 +58,7 @@ void Board::knightMoves(Piece* piece, set< vector<int> >* moves) {
 }
 
 // Bishops
-void Board::bishopMoves(Piece* piece, set< vector<int> >* moves) {
+void Board::bishopMoves(Piece* piece, move_list* moves) {
     // NE direction
     int newRank = piece->getRank() + 1;
     int newFile = piece->getFile() + 1;
@@ -129,7 +129,7 @@ void Board::bishopMoves(Piece* piece, set< vector<int> >* moves) {
 }
 
 // Rooks 
-void Board::rookMoves(Piece* piece, set< vector<int> >* moves) {
+void Board::rookMoves(Piece* piece, move_list* moves) {
     // N
     int newRank = piece->getRank() + 1;
     int newFile = piece->getFile();

@@ -15,21 +15,25 @@
 
 using namespace std;
 
+typedef set< vector<int> > move_list;
+
 class Board {
     public:
         Board();
         vector< vector<Space> > board;
         Piece* getPiece(int rank, int file);
         void setPiece(Piece* piece, int rank, int file);
-        void getMoves(Piece* piece, set< vector<int> >* moves);
+        void getMoves(Piece* piece, move_list* moves);
 
     private:
-        void knightMoves(Piece* piece, set< vector<int> >* moves);
+        void knightMoves(Piece* piece, move_list* moves);
         static vector< vector<int> > knightMoveOffsets;
 
-        void bishopMoves(Piece* piece, set< vector<int> >* moves);
+        void bishopMoves(Piece* piece, move_list* moves);
 
-        void rookMoves(Piece* piece, set< vector<int> >* moves);
+        void rookMoves(Piece* piece, move_list* moves);
+
+        //void pawnMoves(Piece* piece, move_list* moves);
 };
 
 int main();
