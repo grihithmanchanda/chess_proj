@@ -14,3 +14,7 @@ string Pawn::getString() {
 PieceType Pawn::getType() {
     return PAWN;
 }
+
+bool Pawn::getMoved() {
+    return hasMoved;
+}

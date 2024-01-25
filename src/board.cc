@@ -7,7 +7,10 @@ Board::Board() {
 }
 
 Piece* Board::getPiece(int rank, int file) {
-    if (board[rank][file].getEmpty()) {
+    if (rank < 0 || rank > 7 ||
+        file < 0 || file > 7 ||
+        board[rank][file].getEmpty()) {
+
         return NULL;
     }
     return board[rank][file].getPiece();
@@ -33,6 +36,9 @@ void Board::getMoves(Piece* piece, move_list* moves) {
         case QUEEN:
             bishopMoves(piece, moves);
             rookMoves(piece, moves);
+            break;
+        case PAWN:
+            pawnMoves((Pawn*) piece, moves); // cast since pawns need to know if they moved
             break;
         default:
             cout << "ERROR: Piece not found" << endl;
@@ -186,5 +192,23 @@ void Board::rookMoves(Piece* piece, move_list* moves) {
             break;
         }
         newFile--;
+    }
+}
+
+// Pawns
+void Board::pawnMoves(Pawn* pawn, move_list* moves) {
+    int newRank = pawn->getRank() + 1;
+    int newFile = pawn->getFile();
+    if (!getPiece(newRank, newFile)) {
+        moves->insert({newRank, newFile});
+        if (!pawn->getMoved() && !getPiece(newRank + 1, newFile)) {
+            moves->insert({newRank + 1, newFile});
+        }
+    }
+    if (getPiece(newRank, newFile + 1) && getPiece(newRank, newFile + 1)->getWhite() != pawn->getWhite()) {
+        moves->insert({newRank, newFile + 1});
+    }
+    if (getPiece(newRank, newFile - 1) && getPiece(newRank, newFile - 1)->getWhite() != pawn->getWhite()) {
+        moves->insert({newRank, newFile - 1});
     }
 }

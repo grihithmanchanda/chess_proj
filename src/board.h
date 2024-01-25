@@ -33,7 +33,7 @@ class Board {
 
         void rookMoves(Piece* piece, move_list* moves);
 
-        //void pawnMoves(Piece* piece, move_list* moves);
+        void pawnMoves(Pawn* pawn, move_list* moves);
 };
 
 int main();

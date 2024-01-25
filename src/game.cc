@@ -53,7 +53,7 @@ int main() {
 
     move_list* moves = new move_list;
 
-    board.getMoves(&qw, moves);
+    board.getMoves(&pw[3], moves);
 
     for (auto move : *moves) {
         cout << move[0] << ", " << move[1] << endl;
