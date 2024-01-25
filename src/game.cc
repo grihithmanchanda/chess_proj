@@ -51,15 +51,5 @@ int main() {
         cout << endl;
     }
 
-    move_list* moves = new move_list;
-
-    board.getMoves(&kw, moves, false);
-
-    for (auto move : *moves) {
-        cout << move[0] << ", " << move[1] << endl;
-    }
-
-    moves->~set();
-
     return 0;
 }

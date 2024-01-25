@@ -331,12 +331,14 @@ bool Board::underAttack(int rank, int file, bool isKingWhite) {
             if (curr_piece && curr_piece->getWhite() != isKingWhite) {
                 getMoves(curr_piece, moves, true);
                 if (moves->find({rank, file}) != moves->end()) {
+                    delete moves;
                     return true;
                 }
                 moves->clear();
             }
         }
     }
+    delete moves;
     return false;
 }
 
