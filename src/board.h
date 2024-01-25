@@ -39,7 +39,7 @@ class Board {
 
         bool underAttack(int rank, int file, bool isKingWhite);
 
-        //bool isCastleAvailable();
+        void addCastles(King* king, move_list* moves);
 };
 
 int main();

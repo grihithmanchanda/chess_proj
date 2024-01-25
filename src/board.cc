@@ -200,11 +200,7 @@ void Board::rookMoves(Piece* piece, move_list* moves, bool forChecks) {
 
 // Pawns
 void Board::pawnMoves(Pawn* pawn, move_list* moves, bool forChecks) {
-    int direction = -1;
-    if (pawn->getWhite()) {
-        direction = 1;
-    }
-
+    int direction = pawn->getWhite() ? 1 : -1;
     int newRank = pawn->getRank() + direction;
     int newFile = pawn->getFile();
 
@@ -322,6 +318,8 @@ void Board::kingMoves(King* king, move_list* moves, bool forChecks) {
             moves->insert({newRank, newFile});
         }
     }
+
+    addCastles(king, moves);
 }
 
 bool Board::underAttack(int rank, int file, bool isKingWhite) {
@@ -340,4 +338,29 @@ bool Board::underAttack(int rank, int file, bool isKingWhite) {
         }
     }
     return false;
+}
+
+void Board::addCastles(King* king, move_list* moves) {
+    if (!king->getMoved() || !underAttack(king->getRank(), king->getFile(), king->getWhite())) {
+        int backRank = king->getWhite() ? 0 : 7;
+        if (board[backRank][0].getPiece() && board[backRank][0].getPiece()->getType() == ROOK) {
+            Rook* rook = (Rook*) board[backRank][0].getPiece();
+            if (rook->getWhite() == king->getWhite() && !rook->getMoved()) {
+                if (!board[backRank][1].getPiece() && !board[backRank][2].getPiece() && !board[backRank][3].getPiece()) {
+                    if (!underAttack(backRank, 2, king->getWhite()) && !underAttack(backRank, 3, king->getWhite()))
+                    moves->insert({backRank, 2});
+                }
+            }
+        }
+        if (board[backRank][7].getPiece() && board[backRank][7].getPiece()->getType() == ROOK) {
+            Rook* rook = (Rook*) board[backRank][7].getPiece();
+            if (rook->getWhite() == king->getWhite() && !rook->getMoved()) {
+                if (!board[backRank][5].getPiece() && !board[backRank][6].getPiece()) {
+                    if (!underAttack(backRank, 5, king->getWhite()) && !underAttack(backRank, 6, king->getWhite())) {
+                        moves->insert({backRank, 6});
+                    }
+                }
+            }
+        }
+    }
 }

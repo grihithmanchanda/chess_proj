@@ -8,6 +8,7 @@ class King : public Piece {
         King(bool white);
         string getString();
         PieceType getType();
+        bool getMoved();
 
     private: 
         bool hasMoved;

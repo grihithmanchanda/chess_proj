@@ -14,3 +14,7 @@ string King::getString() {
 PieceType King::getType() {
     return KING;
 }
+
+bool King::getMoved() {
+    return hasMoved;
+}

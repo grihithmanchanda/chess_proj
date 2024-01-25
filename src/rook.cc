@@ -14,3 +14,7 @@ string Rook::getString() {
 PieceType Rook::getType() {
     return ROOK;
 }
+
+bool Rook::getMoved() {
+    return hasMoved;
+}
