@@ -8,6 +8,9 @@ class Pawn : public Piece {
         Pawn(bool white);
         string getString();
         PieceType getType();
+
+    private: 
+        bool hasMoved;
 };
 
 #endif

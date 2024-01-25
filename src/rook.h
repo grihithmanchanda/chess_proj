@@ -8,6 +8,9 @@ class Rook : public Piece {
         Rook(bool white);
         string getString();
         PieceType getType();
+    
+    private: 
+        bool hasMoved;
 };
 
 #endif

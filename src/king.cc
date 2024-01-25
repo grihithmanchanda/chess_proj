@@ -4,6 +4,7 @@
 
 King::King(bool white) {
     isWhite = white;
+    hasMoved = false;
 }
 
 string King::getString() {

@@ -4,6 +4,7 @@
 
 Rook::Rook(bool white) {
     isWhite = white;
+    hasMoved = false;
 }
 
 string Rook::getString() {

@@ -4,6 +4,7 @@
 
 Pawn::Pawn(bool white) {
     isWhite = white;
+    hasMoved = false;
 }
 
 string Pawn::getString() {
