@@ -23,7 +23,7 @@ class Board {
         vector< vector<Space> > board;
         Piece* getPiece(int rank, int file);
         void setPiece(Piece* piece, int rank, int file);
-        void getMoves(Piece* piece, move_list* moves);
+        void getMoves(Piece* piece, move_list* moves, bool careAboutCheck, bool attackMovesOnly);
 
     private:
         void knightMoves(Piece* piece, move_list* moves);
@@ -33,7 +33,13 @@ class Board {
 
         void rookMoves(Piece* piece, move_list* moves);
 
-        void pawnMoves(Pawn* pawn, move_list* moves);
+        void pawnMoves(Pawn* pawn, move_list* moves, bool attackMovesOnly);
+
+        void kingMoves(King* king, move_list* moves, bool careAboutCheck);
+
+        bool underAttack(int rank, int file, bool isKingWhite);
+
+        //bool isCastleAvailable();
 };
 
 int main();

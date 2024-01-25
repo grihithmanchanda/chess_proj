@@ -22,7 +22,7 @@ void Board::setPiece(Piece* piece, int rank, int file) {
     piece->setFile(file);
 }
 
-void Board::getMoves(Piece* piece, move_list* moves) {
+void Board::getMoves(Piece* piece, move_list* moves, bool careAboutCheck, bool attackMovesOnly) {
     switch (piece->getType()) {
         case KNIGHT:
             knightMoves(piece, moves);
@@ -38,7 +38,10 @@ void Board::getMoves(Piece* piece, move_list* moves) {
             rookMoves(piece, moves);
             break;
         case PAWN:
-            pawnMoves((Pawn*) piece, moves); // cast since pawns need to know if they moved
+            pawnMoves((Pawn*) piece, moves, attackMovesOnly); // cast since pawns need to know if they moved
+            break;
+        case KING:
+            kingMoves((King*) piece, moves, careAboutCheck);
             break;
         default:
             cout << "ERROR: Piece not found" << endl;
@@ -196,19 +199,114 @@ void Board::rookMoves(Piece* piece, move_list* moves) {
 }
 
 // Pawns
-void Board::pawnMoves(Pawn* pawn, move_list* moves) {
-    int newRank = pawn->getRank() + 1;
+void Board::pawnMoves(Pawn* pawn, move_list* moves, bool attackMovesOnly) {
+    int direction = -1;
+    if (pawn->getWhite()) {
+        direction = 1;
+    }
+
+    int newRank = pawn->getRank() + direction;
     int newFile = pawn->getFile();
-    if (!getPiece(newRank, newFile)) {
-        moves->insert({newRank, newFile});
-        if (!pawn->getMoved() && !getPiece(newRank + 1, newFile)) {
-            moves->insert({newRank + 1, newFile});
+
+    if (!attackMovesOnly) {
+        if (!getPiece(newRank, newFile)) {
+            moves->insert({newRank, newFile});
+            if (!pawn->getMoved() && !getPiece(newRank + direction, newFile)) {
+                moves->insert({newRank + direction, newFile});
+            }
         }
     }
+
     if (getPiece(newRank, newFile + 1) && getPiece(newRank, newFile + 1)->getWhite() != pawn->getWhite()) {
         moves->insert({newRank, newFile + 1});
     }
     if (getPiece(newRank, newFile - 1) && getPiece(newRank, newFile - 1)->getWhite() != pawn->getWhite()) {
         moves->insert({newRank, newFile - 1});
     }
+}
+
+// King
+void Board::kingMoves(King* king, move_list* moves, bool careAboutCheck) {
+    // N
+    int newRank = king->getRank() + 1;
+    int newFile = king->getFile();
+    if (!getPiece(newRank, newFile) || getPiece(newRank, newFile)->getWhite() != king->getWhite()) {
+        if (!careAboutCheck || !underAttack(newRank, newFile, king->getWhite())) {
+            moves->insert({newRank, newFile});
+        }
+    }
+
+    // S
+    newRank = newRank - 2;
+    if (!getPiece(newRank, newFile) || getPiece(newRank, newFile)->getWhite() != king->getWhite()) {
+        if (!careAboutCheck || !underAttack(newRank, newFile, king->getWhite())) {
+            moves->insert({newRank, newFile});
+        }
+    }
+
+    // SW
+    newFile--;
+    if (!getPiece(newRank, newFile) || getPiece(newRank, newFile)->getWhite() != king->getWhite()) {
+        if (!careAboutCheck || !underAttack(newRank, newFile, king->getWhite())) {
+            moves->insert({newRank, newFile});
+        }
+    }
+
+    // W
+    newRank++;
+    if (!getPiece(newRank, newFile) || getPiece(newRank, newFile)->getWhite() != king->getWhite()) {
+        if (!careAboutCheck || !underAttack(newRank, newFile, king->getWhite())) {
+            moves->insert({newRank, newFile});
+        }
+    }
+
+    // NW
+    newRank++;
+    if (!getPiece(newRank, newFile) || getPiece(newRank, newFile)->getWhite() != king->getWhite()) {
+        if (!careAboutCheck || !underAttack(newRank, newFile, king->getWhite())) {
+            moves->insert({newRank, newFile});
+        }
+    }
+
+    // NE
+    newFile = newFile + 2;
+    if (!getPiece(newRank, newFile) || getPiece(newRank, newFile)->getWhite() != king->getWhite()) {
+        if (!careAboutCheck || !underAttack(newRank, newFile, king->getWhite())) {
+            moves->insert({newRank, newFile});
+        }
+    }
+
+    // E
+    newRank--;
+    if (!getPiece(newRank, newFile) || getPiece(newRank, newFile)->getWhite() != king->getWhite()) {
+        if (!careAboutCheck || !underAttack(newRank, newFile, king->getWhite())) {
+            moves->insert({newRank, newFile});
+        }
+    }
+
+    // SE
+    newRank--;
+    if (!getPiece(newRank, newFile) || getPiece(newRank, newFile)->getWhite() != king->getWhite()) {
+        if (!careAboutCheck || !underAttack(newRank, newFile, king->getWhite())) {
+            moves->insert({newRank, newFile});
+        }
+    }
+}
+
+bool Board::underAttack(int rank, int file, bool isKingWhite) {
+    move_list* moves = new move_list;
+    Piece* curr_piece;
+    for (int r = 0; r < 8; r++) {
+        for (int f = 0; f < 8; f++) {
+            curr_piece = board[r][f].getPiece();
+            if (curr_piece && curr_piece->getWhite() != isKingWhite) {
+                getMoves(curr_piece, moves, false, true);
+                if (moves->find({rank, file}) != moves->end()) {
+                    return true;
+                }
+                moves->clear();
+            }
+        }
+    }
+    return false;
 }
