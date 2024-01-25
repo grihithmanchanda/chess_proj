@@ -19,9 +19,12 @@ enum PieceType {
 class Piece {
     public:
         virtual string getString() = 0;
+        int getRank();
         void setRank(int r);
+        int getFile();
         void setFile(int f);
         virtual PieceType getType() = 0;
+        bool getWhite();
 
     protected:
         bool isWhite;

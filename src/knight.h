@@ -8,9 +8,6 @@ class Knight : public Piece {
         Knight(bool white);
         string getString();
         PieceType getType();
-
-    private:
-        static vector< vector<int> > moveOffsets;
 };
 
 #endif
