@@ -23,19 +23,19 @@ class Board {
         vector< vector<Space> > board;
         Piece* getPiece(int rank, int file);
         void setPiece(Piece* piece, int rank, int file);
-        void getMoves(Piece* piece, move_list* moves, bool careAboutCheck, bool attackMovesOnly);
+        void getMoves(Piece* piece, move_list* moves, bool forChecks);
 
     private:
-        void knightMoves(Piece* piece, move_list* moves);
+        void knightMoves(Piece* piece, move_list* moves, bool forChecks);
         static vector< vector<int> > knightMoveOffsets;
 
-        void bishopMoves(Piece* piece, move_list* moves);
+        void bishopMoves(Piece* piece, move_list* moves, bool forChecks);
 
-        void rookMoves(Piece* piece, move_list* moves);
+        void rookMoves(Piece* piece, move_list* moves, bool forChecks);
 
-        void pawnMoves(Pawn* pawn, move_list* moves, bool attackMovesOnly);
+        void pawnMoves(Pawn* pawn, move_list* moves, bool forChecks);
 
-        void kingMoves(King* king, move_list* moves, bool careAboutCheck);
+        void kingMoves(King* king, move_list* moves, bool forChecks);
 
         bool underAttack(int rank, int file, bool isKingWhite);
 

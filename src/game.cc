@@ -19,7 +19,7 @@ int main() {
     board.setPiece(&nw[0], 0, 1);
     board.setPiece(&bw[0], 0, 2);
     board.setPiece(&qw, 0, 3);
-    board.setPiece(&kw, 3, 4);
+    board.setPiece(&kw, 0, 4);
     board.setPiece(&bw[1], 0, 5);
     board.setPiece(&nw[1], 0, 6);
     board.setPiece(&rw[1], 0, 7);
@@ -53,7 +53,7 @@ int main() {
 
     move_list* moves = new move_list;
 
-    board.getMoves(&kw, moves, true, false);
+    board.getMoves(&kw, moves, false);
 
     for (auto move : *moves) {
         cout << move[0] << ", " << move[1] << endl;
