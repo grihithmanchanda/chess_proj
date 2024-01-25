@@ -21,15 +21,15 @@ class Board {
         vector< vector<Space> > board;
         Piece* getPiece(int rank, int file);
         void setPiece(Piece* piece, int rank, int file);
-        set< vector<int> > getMoves(Piece* piece);
+        void getMoves(Piece* piece, set< vector<int> >* moves);
 
     private:
-        set< vector<int> > knightMoves(Knight* knight);
+        void knightMoves(Piece* piece, set< vector<int> >* moves);
         static vector< vector<int> > knightMoveOffsets;
 
-        set< vector<int> > bishopMoves(Bishop* bishop);
+        void bishopMoves(Piece* piece, set< vector<int> >* moves);
 
-        set< vector<int> > rookMoves(Rook* rook);
+        void rookMoves(Piece* piece, set< vector<int> >* moves);
 };
 
 int main();

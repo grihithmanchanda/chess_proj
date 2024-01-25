@@ -51,7 +51,11 @@ int main() {
         cout << endl;
     }
 
-    for (auto move : board.getMoves(&rw[0])) {
+    set< vector <int> > moves;
+
+    board.getMoves(&qw, &moves);
+
+    for (auto move : moves) {
         cout << move[0] << ", " << move[1] << endl;
     }
 

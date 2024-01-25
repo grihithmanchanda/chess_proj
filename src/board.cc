@@ -19,14 +19,21 @@ void Board::setPiece(Piece* piece, int rank, int file) {
     piece->setFile(file);
 }
 
-set< vector<int> > Board::getMoves(Piece* piece) {
+void Board::getMoves(Piece* piece, set< vector<int> >* moves) {
     switch (piece->getType()) {
         case KNIGHT:
-            return knightMoves((Knight*) piece);
+            knightMoves(piece, moves);
+            break;
         case BISHOP:
-            return bishopMoves((Bishop*) piece);
+            bishopMoves(piece, moves);
+            break;
         case ROOK:
-            return rookMoves((Rook*) piece);
+            rookMoves(piece, moves);
+            break;
+        case QUEEN:
+            bishopMoves(piece, moves);
+            rookMoves(piece, moves);
+            break;
         default:
             cout << "ERROR: Piece not found" << endl;
     }
@@ -36,37 +43,32 @@ set< vector<int> > Board::getMoves(Piece* piece) {
 vector< vector<int> > Board::knightMoveOffsets = {{1, 2}, {1, -2}, {-1, 2}, {-1, -2},
                                              {2, 1}, {2, -1}, {-2, 1}, {-2, -1}};
 
-set< vector<int> > Board::knightMoves(Knight* knight) {
-    set< vector<int> > moves;
+void Board::knightMoves(Piece* piece, set< vector<int> >* moves) {
     for (auto offset : Board::knightMoveOffsets) {
-        int newRank = knight->getRank() + offset[0];
-        int newFile = knight->getFile() + offset[1];
+        int newRank = piece->getRank() + offset[0];
+        int newFile = piece->getFile() + offset[1];
         if (newRank >= 0 && newRank < 8) {
             if (newFile >= 0 && newFile < 8) {
-                if (!getPiece(newRank, newFile) || getPiece(newRank, newFile)->getWhite() != knight->getWhite()) {
-                    moves.insert({newRank, newFile});
+                if (!getPiece(newRank, newFile) || getPiece(newRank, newFile)->getWhite() != piece->getWhite()) {
+                    moves->insert({newRank, newFile});
                 }
             }
         }
     }
-    return moves;
 }
 
 // Bishops
-set< vector<int> > Board::bishopMoves(Bishop* bishop) {
-
-    set< vector<int> > moves;
-
+void Board::bishopMoves(Piece* piece, set< vector<int> >* moves) {
     // NE direction
-    int newRank = bishop->getRank() + 1;
-    int newFile = bishop->getFile() + 1;
+    int newRank = piece->getRank() + 1;
+    int newFile = piece->getFile() + 1;
 
     while (newRank < 8 && newFile < 8) {
         if (!getPiece(newRank, newFile)) {
-            moves.insert({newRank, newFile});
+            moves->insert({newRank, newFile});
         } else {
-            if (getPiece(newRank, newFile)->getWhite() != bishop->getWhite()) {
-                moves.insert({newRank, newFile});
+            if (getPiece(newRank, newFile)->getWhite() != piece->getWhite()) {
+                moves->insert({newRank, newFile});
             }
             break;
         }
@@ -75,15 +77,15 @@ set< vector<int> > Board::bishopMoves(Bishop* bishop) {
     } 
 
     // NW 
-    newRank = bishop->getRank() + 1;
-    newFile = bishop->getFile() - 1;
+    newRank = piece->getRank() + 1;
+    newFile = piece->getFile() - 1;
 
     while (newRank < 8 && newFile >= 0) {
         if (!getPiece(newRank, newFile)) {
-            moves.insert({newRank, newFile});
+            moves->insert({newRank, newFile});
         } else {
-            if (getPiece(newRank, newFile)->getWhite() != bishop->getWhite()) {
-                moves.insert({newRank, newFile});
+            if (getPiece(newRank, newFile)->getWhite() != piece->getWhite()) {
+                moves->insert({newRank, newFile});
             }
             break;
         }
@@ -92,15 +94,15 @@ set< vector<int> > Board::bishopMoves(Bishop* bishop) {
     } 
 
     // SE
-    newRank = bishop->getRank() - 1;
-    newFile = bishop->getFile() + 1;
+    newRank = piece->getRank() - 1;
+    newFile = piece->getFile() + 1;
 
     while (newRank >= 0 && newFile < 8) {
         if (!getPiece(newRank, newFile)) {
-            moves.insert({newRank, newFile});
+            moves->insert({newRank, newFile});
         } else {
-            if (getPiece(newRank, newFile)->getWhite() != bishop->getWhite()) {
-                moves.insert({newRank, newFile});
+            if (getPiece(newRank, newFile)->getWhite() != piece->getWhite()) {
+                moves->insert({newRank, newFile});
             }
             break;
         }
@@ -109,38 +111,34 @@ set< vector<int> > Board::bishopMoves(Bishop* bishop) {
     } 
 
     // SW
-    newRank = bishop->getRank() - 1;
-    newFile = bishop->getFile() - 1;
+    newRank = piece->getRank() - 1;
+    newFile = piece->getFile() - 1;
 
     while (newRank >= 0 && newFile >= 0) {
         if (!getPiece(newRank, newFile)) {
-            moves.insert({newRank, newFile});
+            moves->insert({newRank, newFile});
         } else {
-            if (getPiece(newRank, newFile)->getWhite() != bishop->getWhite()) {
-                moves.insert({newRank, newFile});
+            if (getPiece(newRank, newFile)->getWhite() != piece->getWhite()) {
+                moves->insert({newRank, newFile});
             }
             break;
         }
         newRank--;
         newFile--;
     }
-
-    return moves;
 }
 
 // Rooks 
-set< vector<int> > Board::rookMoves(Rook* rook) {
-    set< vector<int> > moves;
-
+void Board::rookMoves(Piece* piece, set< vector<int> >* moves) {
     // N
-    int newRank = rook->getRank() + 1;
-    int newFile = rook->getFile();
+    int newRank = piece->getRank() + 1;
+    int newFile = piece->getFile();
     while (newRank < 8) {
         if (!getPiece(newRank, newFile)) {
-            moves.insert({newRank, newFile});
+            moves->insert({newRank, newFile});
         } else {
-            if (getPiece(newRank, newFile)->getWhite() != rook->getWhite()) {
-                moves.insert({newRank, newFile});
+            if (getPiece(newRank, newFile)->getWhite() != piece->getWhite()) {
+                moves->insert({newRank, newFile});
             }
             break;
         }
@@ -148,13 +146,13 @@ set< vector<int> > Board::rookMoves(Rook* rook) {
     }
 
     // S
-    newRank = rook->getRank() - 1;
+    newRank = piece->getRank() - 1;
     while (newRank >= 0) {
         if (!getPiece(newRank, newFile)) {
-            moves.insert({newRank, newFile});
+            moves->insert({newRank, newFile});
         } else {
-            if (getPiece(newRank, newFile)->getWhite() != rook->getWhite()) {
-                moves.insert({newRank, newFile});
+            if (getPiece(newRank, newFile)->getWhite() != piece->getWhite()) {
+                moves->insert({newRank, newFile});
             }
             break;
         }
@@ -162,14 +160,14 @@ set< vector<int> > Board::rookMoves(Rook* rook) {
     }
 
     // E
-    newRank = rook->getRank();
-    newFile = rook->getFile() + 1;
+    newRank = piece->getRank();
+    newFile = piece->getFile() + 1;
     while (newFile < 8) {
         if (!getPiece(newRank, newFile)) {
-            moves.insert({newRank, newFile});
+            moves->insert({newRank, newFile});
         } else {
-            if (getPiece(newRank, newFile)->getWhite() != rook->getWhite()) {
-                moves.insert({newRank, newFile});
+            if (getPiece(newRank, newFile)->getWhite() != piece->getWhite()) {
+                moves->insert({newRank, newFile});
             }
             break;
         }
@@ -177,18 +175,16 @@ set< vector<int> > Board::rookMoves(Rook* rook) {
     }
 
     // W
-    newFile = rook->getFile() - 1;
+    newFile = piece->getFile() - 1;
     while (newFile >= 0) {
         if (!getPiece(newRank, newFile)) {
-            moves.insert({newRank, newFile});
+            moves->insert({newRank, newFile});
         } else {
-            if (getPiece(newRank, newFile)->getWhite() != rook->getWhite()) {
-                moves.insert({newRank, newFile});
+            if (getPiece(newRank, newFile)->getWhite() != piece->getWhite()) {
+                moves->insert({newRank, newFile});
             }
             break;
         }
         newFile--;
     }
-
-    return moves;
 }
