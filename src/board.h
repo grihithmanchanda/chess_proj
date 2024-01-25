@@ -24,8 +24,10 @@ class Board {
         set< vector<int> > getMoves(Piece* piece);
 
     private:
-        set< vector<int> > knightMoves(Knight* piece);
+        set< vector<int> > knightMoves(Knight* knight);
         static vector< vector<int> > knightMoveOffsets;
+
+        set< vector<int> > bishopMoves(Bishop* bishop);
 };
 
 int main();

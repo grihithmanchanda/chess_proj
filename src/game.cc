@@ -39,7 +39,7 @@ int main() {
     }
 
     // check setup
-    for (int i = 0; i < 8; i++) {
+    for (int i = 7; i >= 0; i--) {
         for (int j = 0; j < 8; j++) {
             Piece* piece = board.getPiece(i, j);
             if (piece) {
@@ -51,7 +51,7 @@ int main() {
         cout << endl;
     }
 
-    for (auto move : board.getMoves(&nw[0])) {
+    for (auto move : board.getMoves(&bw[0])) {
         cout << move[0] << ", " << move[1] << endl;
     }
 

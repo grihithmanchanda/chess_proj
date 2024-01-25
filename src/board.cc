@@ -23,6 +23,8 @@ set< vector<int> > Board::getMoves(Piece* piece) {
     switch (piece->getType()) {
         case KNIGHT:
             return knightMoves((Knight*) piece);
+        case BISHOP:
+            return bishopMoves((Bishop*) piece);
         default:
             cout << "ERROR: Piece not found" << endl;
     }
@@ -45,5 +47,82 @@ set< vector<int> > Board::knightMoves(Knight* knight) {
             }
         }
     }
+    return moves;
+}
+
+// Bishops
+
+set< vector<int> > Board::bishopMoves(Bishop* bishop) {
+
+    set< vector<int> > moves;
+
+    // NE direction
+    int newRank = bishop->getRank() + 1;
+    int newFile = bishop->getFile() + 1;
+
+    while (newRank < 8 && newFile < 8) {
+        if (!getPiece(newRank, newFile)) {
+            moves.insert({newRank, newFile});
+        } else {
+            if (getPiece(newRank, newFile)->getWhite() != bishop->getWhite()) {
+                moves.insert({newRank, newFile});
+            }
+            break;
+        }
+        newRank++;
+        newFile++;
+    } 
+
+    // NW 
+    newRank = bishop->getRank() + 1;
+    newFile = bishop->getFile() - 1;
+
+    while (newRank < 8 && newFile >= 0) {
+        if (!getPiece(newRank, newFile)) {
+            moves.insert({newRank, newFile});
+        } else {
+            if (getPiece(newRank, newFile)->getWhite() != bishop->getWhite()) {
+                moves.insert({newRank, newFile});
+            }
+            break;
+        }
+        newRank++;
+        newFile--;
+    } 
+
+    // SE
+    newRank = bishop->getRank() - 1;
+    newFile = bishop->getFile() + 1;
+
+    while (newRank >= 0 && newFile < 8) {
+        if (!getPiece(newRank, newFile)) {
+            moves.insert({newRank, newFile});
+        } else {
+            if (getPiece(newRank, newFile)->getWhite() != bishop->getWhite()) {
+                moves.insert({newRank, newFile});
+            }
+            break;
+        }
+        newRank--;
+        newFile++;
+    } 
+
+    // SW
+    newRank = bishop->getRank() - 1;
+    newFile = bishop->getFile() - 1;
+
+    while (newRank >= 0 && newFile >= 0) {
+        if (!getPiece(newRank, newFile)) {
+            moves.insert({newRank, newFile});
+        } else {
+            if (getPiece(newRank, newFile)->getWhite() != bishop->getWhite()) {
+                moves.insert({newRank, newFile});
+            }
+            break;
+        }
+        newRank--;
+        newFile--;
+    }
+
     return moves;
 }
