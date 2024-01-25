@@ -51,7 +51,7 @@ int main() {
         cout << endl;
     }
 
-    for (auto move : board.getMoves(&bw[0])) {
+    for (auto move : board.getMoves(&rw[0])) {
         cout << move[0] << ", " << move[1] << endl;
     }
 

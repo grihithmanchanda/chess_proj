@@ -28,6 +28,8 @@ class Board {
         static vector< vector<int> > knightMoveOffsets;
 
         set< vector<int> > bishopMoves(Bishop* bishop);
+
+        set< vector<int> > rookMoves(Rook* rook);
 };
 
 int main();

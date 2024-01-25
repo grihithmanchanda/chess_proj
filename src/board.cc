@@ -25,6 +25,8 @@ set< vector<int> > Board::getMoves(Piece* piece) {
             return knightMoves((Knight*) piece);
         case BISHOP:
             return bishopMoves((Bishop*) piece);
+        case ROOK:
+            return rookMoves((Rook*) piece);
         default:
             cout << "ERROR: Piece not found" << endl;
     }
@@ -51,7 +53,6 @@ set< vector<int> > Board::knightMoves(Knight* knight) {
 }
 
 // Bishops
-
 set< vector<int> > Board::bishopMoves(Bishop* bishop) {
 
     set< vector<int> > moves;
@@ -121,6 +122,71 @@ set< vector<int> > Board::bishopMoves(Bishop* bishop) {
             break;
         }
         newRank--;
+        newFile--;
+    }
+
+    return moves;
+}
+
+// Rooks 
+set< vector<int> > Board::rookMoves(Rook* rook) {
+    set< vector<int> > moves;
+
+    // N
+    int newRank = rook->getRank() + 1;
+    int newFile = rook->getFile();
+    while (newRank < 8) {
+        if (!getPiece(newRank, newFile)) {
+            moves.insert({newRank, newFile});
+        } else {
+            if (getPiece(newRank, newFile)->getWhite() != rook->getWhite()) {
+                moves.insert({newRank, newFile});
+            }
+            break;
+        }
+        newRank++;
+    }
+
+    // S
+    newRank = rook->getRank() - 1;
+    while (newRank >= 0) {
+        if (!getPiece(newRank, newFile)) {
+            moves.insert({newRank, newFile});
+        } else {
+            if (getPiece(newRank, newFile)->getWhite() != rook->getWhite()) {
+                moves.insert({newRank, newFile});
+            }
+            break;
+        }
+        newRank--;
+    }
+
+    // E
+    newRank = rook->getRank();
+    newFile = rook->getFile() + 1;
+    while (newFile < 8) {
+        if (!getPiece(newRank, newFile)) {
+            moves.insert({newRank, newFile});
+        } else {
+            if (getPiece(newRank, newFile)->getWhite() != rook->getWhite()) {
+                moves.insert({newRank, newFile});
+            }
+            break;
+        }
+        newFile++;
+    }
+
+    // W
+    newFile = rook->getFile() - 1;
+    while (newFile >= 0) {
+        if (!getPiece(newRank, newFile)) {
+            moves.insert({newRank, newFile});
+        } else {
+            if (getPiece(newRank, newFile)->getWhite() != rook->getWhite()) {
+                moves.insert({newRank, newFile});
+            }
+            break;
+        }
         newFile--;
     }
 
